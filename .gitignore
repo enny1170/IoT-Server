@@ -1,7 +1,5 @@
-<<<<<<< HEAD
 .pioenvs
 .piolibdeps
-=======
 # Prerequisites
 *.d
 
@@ -34,4 +32,6 @@
 *.exe
 *.out
 *.app
->>>>>>> 5b10ebcd179a99b9e83a634b22cb37d9fdb82045
+.vscode/BROWSE.VC.DB
+.vscode/BROWSE.VC.DB-shm
+.vscode/BROWSE.VC.DB-wal
