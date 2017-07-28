@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #ifndef IOT_CONFIG_H
 #define IOT_CONFIG_H
 
@@ -172,7 +171,6 @@ class IOT_Config
   private:
     String _rawConfiguration;
 };
-=======
 #ifndef IOT_CONFIG_H
 #define IOT_CONFIG_H
 
@@ -346,5 +344,4 @@ class IOT_Config
   private:
     String _rawConfiguration;
 };
->>>>>>> fc7b9f8d9fff489640d6f5ca8bfdb9acca643cf4
 #endif

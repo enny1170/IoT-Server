@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #include <IOT_Config.h>
 
 void IOT_Config::setDeviceName(char *name)
@@ -379,7 +378,6 @@ void IOT_Config::setDefaults()
     setWifiApSsid(esp_id);
     setWifiApPassword((char*)"password");
     setMqttDeviceName(esp_id);
-=======
 #include <IOT_Config.h>
 
 void IOT_Config::setDeviceName(char *name)
@@ -760,5 +758,4 @@ void IOT_Config::setDefaults()
     setWifiApSsid(esp_id);
     setWifiApPassword((char*)"password");
     setMqttDeviceName(esp_id);
->>>>>>> fc7b9f8d9fff489640d6f5ca8bfdb9acca643cf4
 }

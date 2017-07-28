@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #include <IOT_Sensor.h>
 
 // Constructor
@@ -77,7 +76,6 @@ void IOTServer::factory_reset(){
     delay(1000);
     ESP.restart();
 }
-=======
 #include <IOT_Sensor.h>
 
 // Constructor
@@ -156,4 +154,3 @@ void IOTServer::factory_reset(){
     delay(1000);
     ESP.restart();
 }
->>>>>>> fc7b9f8d9fff489640d6f5ca8bfdb9acca643cf4
