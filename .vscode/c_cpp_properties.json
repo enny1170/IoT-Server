@@ -145,12 +145,14 @@
                     "C:\\Users\\e.ziehe.STRUBE-SAAT\\.platformio\\packages\\toolchain-xtensa\\xtensa-lx106-elf\\include",
                     "C:\\Users\\e.ziehe.STRUBE-SAAT\\.platformio\\packages\\toolchain-xtensa\\lib\\gcc\\xtensa-lx106-elf\\4.8.2\\include",
                     "C:\\Users\\e.ziehe.STRUBE-SAAT\\.platformio\\packages\\toolchain-xtensa\\lib\\gcc\\xtensa-lx106-elf\\4.8.2\\include-fixed",
-                    "C:\\Users\\e.ziehe.STRUBE-SAAT\\.platformio\\packages\\tool-unity"
+                    "C:\\Users\\e.ziehe.STRUBE-SAAT\\.platformio\\packages\\tool-unity",
+                    "${workspaceRoot}"
                 ],
                 "limitSymbolsToIncludedHeaders": false,
                 "databaseFilename": "${workspaceRoot}/.vscode/browse.vc.db"
             },
             "intelliSenseMode": "msvc-x64"
         }
-    ]
+    ],
+    "version": 2
 }
