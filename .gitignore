@@ -42,3 +42,5 @@
 .vscode/
 >>>>>>> a5a32b69ae20bb30a83d5f979b0d3b56a58a474a
 .vscode
+.pioenvs
+.piolibdeps
