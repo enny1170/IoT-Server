@@ -11,7 +11,8 @@
 #include <ESP8266SSDP.h>
  */
 //#include <IOT_Sensor.h>
-//#include <Hash.h>
+#include <Hash.h>
+#include <ESP8266WiFi.h>
 #include <ConfigBase.h>
 
 //IOTServer iotServer;

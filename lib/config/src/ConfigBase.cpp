@@ -5,7 +5,8 @@
 //  Original author: e.ziehe
 ///////////////////////////////////////////////////////////
 
-#include "ConfigBase.h"
+#include <ConfigBase.h>
+
 
 
 ConfigBase::ConfigBase(){
@@ -91,22 +92,26 @@ void ConfigBase::SetKey(char newVal){
  * Document, Is not we have to build as String with Key
  */
 String ConfigBase::BuildConfigString(bool isRoot){
-    DynamicJsonBuffer jsonBuffer;
-    JsonObject &json 
+    DynamicJsonBuffer jsonBuffer(300);
+    JsonObject& json = jsonBuffer.createObject();
+    JsonObject& njson = json.createNestedObject(Key);
+    String output;
+
     if(isRoot){
-        &jason=JsonBuffer.createNestedObject(Key);
+        for(auto &itr:ParamsList)
+        {
+            njson[itr.first]=itr.second;
+        }
+        njson.printTo(output);
     }
     else{
-        &jason=JasonBuffer.createObject();
+        for(auto &itr:ParamsList)
+        {
+            json[itr.first]=itr.second;
+        }
+        json.printTo(output);
     }
 
-    for(auto &itr:ParamsList)
-    {
-        json[itr:first.c_str()]=itr.second.c_str();
-    }
-
-    String output;
-    root.printTo(output);
     return output;
   }
 
@@ -115,41 +120,41 @@ String ConfigBase::BuildConfigString(bool isRoot){
 	 */
 	bool ConfigBase::ParseConfigString(String jsonString){
         bool retVal=false;
-        DynamicJsonBuffer jasonBuffer;
-        JsonObject& data = jsonBuffer.parseObject(json);
-        try{
+        DynamicJsonBuffer jsonBuffer;
+        JsonObject& data = jsonBuffer.parseObject(jsonString);
+//        try{
               // Test if parsing succeeds.
-              if (!root.success()) {
+              if (!data.success()) {
                 Serial.println("parseObject() failed");
                 retVal=false;
                 return retVal;
               }
               else{
-                ParamsList.clear()
+                ParamsList.clear();
                 for(auto &itr:data){
-                    Params_Add(itr.first,itr.second);
+                    Params_Add((char*)itr.key,(char*)itr.value);
                 }
                 retVal=true;
                 return retVal;
               }
-        }
-        catch(exception){
-            retVal=false;
-            Serial.println("Error during reading of JsonObject");
-        }
-        return retVal;
+        // }
+        // catch(exception& ex){
+        //     retVal=false;
+        //     Serial.printf("Error during reading of JsonObject: %s",ex.what());
+        // }
+        // return retVal;
     }
     
 
 /**
  * Writes the _rawConfiguration Json String to SPIFS File
  */
-void ConfigBase::WriteRawConfigFile(char filename){
+void ConfigBase::WriteRawConfigFile(char* filename){
     DynamicJsonBuffer jsonBuffer;
     JsonObject &json = jsonBuffer.createObject();
     for(auto &itr:ParamsList)
     {
-        json[itr:first.c_str()]=itr.second.c_str();
+        json[itr.first.c_str()]=itr.second.c_str();
     }
 	File configFile = SPIFFS.open("filename", "w");
     if (!configFile)
@@ -162,45 +167,46 @@ void ConfigBase::WriteRawConfigFile(char filename){
     configFile.close();
 }
 
-void ConfigBase::Params_Add(String key, String newValue){
+/* void ConfigBase::Params_Add(String key, String newValue){
     if(ParamsList.count(key.c_str())!=1){
-        ParamsList.emplace(key.c_str(),value.c_str());
+        ParamsList.emplace(key.c_str(),newValue.c_str());
     }
     else
     {
-        ParamsList[key]=newValue.c_str();
+        ParamsList[key.c_str()]=newValue.c_str();
     }
-}
+} */
 
 void ConfigBase::Params_Add(char * key, char * newValue){
-    if(ParamsList.count(key!=1){
-        ParamsList.emplace(key,newValue);
-    }
-    else{
-        ParamsList[key]=newValue);
-    }
-}
-
-void ConfigBase::Params_Add(const char * key,char * newValue){
     if(ParamsList.count(key)!=1){
         ParamsList.emplace(key,newValue);
     }
     else{
-        ParamsList[key]=newValue);
+        ParamsList[key]=newValue;
     }
 }
+
+/* void ConfigBase::Params_Add(const char * key,char * newValue){
+    if(ParamsList.count(key)!=1){
+        ParamsList.emplace((char*)key,newValue);
+    }
+    else{
+        ParamsList[key]=newValue;
+    }
+} */
+
 char* ConfigBase::Params_Get(char* key){
     return ParamsList[key];
 }
 
-char* ConfigBase::Params_Get(const char * key){
+/* char* ConfigBase::Params_Get(const char * key){
     return ParamsList[key];
-}
+} */
 
 /**
  * This Method can be used to Set DefaultConfig shoul be overwritten in your Implementation
  */
-virtual void ConfigBase::SetDefaults(bool write=false){
+void ConfigBase::SetDefaults(bool write){
     // Content has to be set in your implementation
 }
      
