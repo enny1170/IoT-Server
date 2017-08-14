@@ -9,7 +9,8 @@
 #define _CONFIGBASE_H_
 #include <FS.h>
 #include <ArduinoJson.h> //https://github.com/bblanchon/ArduinoJson
-//#include "Arduino.h"     //https://github.com/arduino/Arduino
+#include <Arduino.h>     //https://github.com/arduino/Arduino
+#include <ESP8266WiFi.h>
 #include <unordered_map>
 
 /**
@@ -30,12 +31,12 @@ public:
 	 *   Printf("key: %s, value: %s",itr.first,itr.second);
 	 * }
 	 */
-	std::unordered_map<char*, char*> ParamsList;
+	std::unordered_map<const char*,const char*> ParamsList;
 	//std::list<String> ParamsList;
 
-	virtual char GetKey();
+	virtual char* GetKey();
 	virtual String GetRawConfigFile(char* filename);
-	virtual void SetKey(char newVal);
+	virtual void SetKey(char* newVal);
 	/**
 	 * Build a Json String from Configuration Object, has to be overwritten in Your
 	 * implementation. Have in your mind if isRoot so we have to build a valid
@@ -53,12 +54,12 @@ public:
 	bool ParseConfigString(String jsonString);
 	bool ParseConfigFile(char* filename);
 	//void Params_Add(String key, String newValue);
-	void Params_Add(char * key,char * newValue);
-	//void Params_Add(const char *key, const char * newValue);
+	//void Params_Add(char * key,char * newValue);
+	void Params_Add(const char *key, const char * newValue);
 	//void Params_Add(const char *key, char * newValue);
 	//char* Params_Get(String key);
-	char* Params_Get(char * key);
-	//char* Params_Get(const char * key);
+	//char* Params_Get(char * key);
+	const char* Params_Get(const char * key);
 	
 	/**
 	 * This Method can be used to Set DefaultConfig shoul be overwritten in your Implementation

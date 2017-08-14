@@ -23,7 +23,7 @@ ConfigBase::~ConfigBase(){
 
 
 
-char ConfigBase::GetKey(){
+char* ConfigBase::GetKey(){
 
 	return Key;
 }
@@ -80,7 +80,7 @@ String ConfigBase::GetRawConfigFile(char* filename){
 }
 
 
-void ConfigBase::SetKey(char newVal){
+void ConfigBase::SetKey(char* newVal){
 
 	Key = newVal;
 }
@@ -132,7 +132,7 @@ String ConfigBase::BuildConfigString(bool isRoot){
               else{
                 ParamsList.clear();
                 for(auto &itr:data){
-                    Params_Add((char*)itr.key,(char*)itr.value);
+                    Params_Add(itr.key,itr.value);
                 }
                 retVal=true;
                 return retVal;
@@ -154,7 +154,7 @@ void ConfigBase::WriteRawConfigFile(char* filename){
     JsonObject &json = jsonBuffer.createObject();
     for(auto &itr:ParamsList)
     {
-        json[itr.first.c_str()]=itr.second.c_str();
+        json[itr.first]=itr.second;
     }
 	File configFile = SPIFFS.open("filename", "w");
     if (!configFile)
@@ -177,7 +177,7 @@ void ConfigBase::WriteRawConfigFile(char* filename){
     }
 } */
 
-void ConfigBase::Params_Add(char * key, char * newValue){
+/* void ConfigBase::Params_Add(char * key, char * newValue){
     if(ParamsList.count(key)!=1){
         ParamsList.emplace(key,newValue);
     }
@@ -185,23 +185,23 @@ void ConfigBase::Params_Add(char * key, char * newValue){
         ParamsList[key]=newValue;
     }
 }
-
-/* void ConfigBase::Params_Add(const char * key,char * newValue){
+ */
+void ConfigBase::Params_Add(const char * key,const char * newValue){
     if(ParamsList.count(key)!=1){
         ParamsList.emplace((char*)key,newValue);
     }
     else{
         ParamsList[key]=newValue;
     }
-} */
-
-char* ConfigBase::Params_Get(char* key){
+}
+  
+/* char* ConfigBase::Params_Get(char* key){
     return ParamsList[key];
 }
-
-/* char* ConfigBase::Params_Get(const char * key){
+ */
+const char* ConfigBase::Params_Get(const char * key){
     return ParamsList[key];
-} */
+} 
 
 /**
  * This Method can be used to Set DefaultConfig shoul be overwritten in your Implementation
